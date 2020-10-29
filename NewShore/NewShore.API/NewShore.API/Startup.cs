@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NewShore.Persistence;
+using NewShore.Service;
 
 namespace NewShore.API
 {
@@ -30,6 +31,10 @@ namespace NewShore.API
                 opts.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            // Adiciona la inyeccion de dependencias para los dos servicios
+            services.AddTransient<ITicketService, TicketService>();
+            services.AddTransient<IFlightService, FlightService>();
 
             services.AddControllers();
         }

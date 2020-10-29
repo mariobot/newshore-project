@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NewShore.Persistence\NewShore.Persistence\NewShore.Persistence.csproj" />
+    <ProjectReference Include="..\..\NewShore.Service\NewShore.Service\NewShore.Service.csproj" />
   </ItemGroup>
 
 

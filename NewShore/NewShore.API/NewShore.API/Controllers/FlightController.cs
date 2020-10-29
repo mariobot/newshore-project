@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NewShore.Domain.DTO;
+using NewShore.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,36 +14,26 @@ namespace NewShore.API.Controllers
     [ApiController]
     public class FlightController : ControllerBase
     {
-        // GET: api/<FlightController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IFlightService flightService;
+
+        public FlightController(IFlightService flightService)
         {
-            return new string[] { "value1", "value2" };
+            this.flightService = flightService;
         }
 
-        // GET api/<FlightController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<FlightController>
+        [HttpGet]
+        public string Get()
         {
-            return "value";
-        }
+            return "API Flight is RUNNING...";
+        }        
 
         // POST api/<FlightController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public List<FlightDTO> Post(FlightQueryDTO flightQuery)
         {
-        }
-
-        // PUT api/<FlightController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<FlightController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var result = flightService.SearchFight(flightQuery);
+            return result;
         }
     }
 }
