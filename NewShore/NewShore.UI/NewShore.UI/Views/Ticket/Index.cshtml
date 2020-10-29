@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Reserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="tab-pane" id="details">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="info-text"> Let's start with the basic details</h4>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+                <div class="form-group">
+                    <label>What city is your boat in?</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Where is your boat located?">
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label>Boat Type</label>
+                    <select class="form-control">
+                        <option disabled="" selected="">- boat type -</option>
+                        <option>Power</option>
+                        <option>Sail</option>
+                        <option>Paddle</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+                <div class="form-group">
+                    <label>Year Manufacture</label>
+                    <select class="form-control">
+                        <option disabled="" selected="">- year -</option>
+                        <option>2008</option>
+                        <option>2009</option>
+                        <option>2010</option>
+                        <option>2011</option>
+                        <option>2012</option>
+                        <option>2013</option>
+                        <option>2014</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label>Daily Price</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon">$</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
