@@ -1,24 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Json;
+using NewShore.Domain.DTO;
+using NewShore.UI.Models;
+using System.Text.Json;
 
 namespace NewShore.UI.Controllers
 {
     public class FlightController : Controller
     {
+        private readonly HttpClient clientHttp;
+
+        public FlightController(IHttpClientFactory clientHttp)
+        {
+            this.clientHttp = clientHttp.CreateClient("apiClient");
+        }
+
         // GET: FlightController
         public ActionResult Index()
         {
-            return View();
+            return View(new FlightViewModel());
         }
 
-        // GET: FlightController/Details/5
-        public ActionResult Details(int id)
+        [HttpPost]
+        public async Task<ActionResult> SearchFlight(FlightQueryDTO queryFlight)
         {
-            return View();
+            FlightViewModel modelVM = new FlightViewModel();
+            var response = await clientHttp.PostAsJsonAsync<FlightQueryDTO>("api/flight", queryFlight);
+            var json = await response.Content.ReadAsStringAsync();
+            modelVM.ListFlights = JsonSerializer.Deserialize<List<FlightDTO>>(json, new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true,});
+            return View("Index", modelVM);
         }
 
         // GET: FlightController/Create
@@ -46,42 +63,6 @@ namespace NewShore.UI.Controllers
         public ActionResult Edit(int id)
         {
             return View();
-        }
-
-        // POST: FlightController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FlightController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: FlightController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

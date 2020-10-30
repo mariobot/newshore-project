@@ -24,6 +24,12 @@ namespace NewShore.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            services.AddHttpClient("apiClient", api => {
+                api.BaseAddress = new Uri("http://localhost:40000/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

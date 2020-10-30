@@ -1,4 +1,4 @@
-﻿
+﻿@model NewShore.Domain.DTO.TicketDetailDTO
 @{
     ViewData["Title"] = "Reserva";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,48 +7,57 @@
     <div class="tab-pane" id="details">
         <div class="row">
             <div class="col-sm-12">
-                <h4 class="info-text"> Let's start with the basic details</h4>
+                <br />
             </div>
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class="col-sm-4 col-lg-offset-1">
                 <div class="form-group">
-                    <label>What city is your boat in?</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Where is your boat located?">
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <label>Boat Type</label>
-                    <select class="form-control">
-                        <option disabled="" selected="">- boat type -</option>
-                        <option>Power</option>
-                        <option>Sail</option>
-                        <option>Paddle</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-5 col-sm-offset-1">
-                <div class="form-group">
-                    <label>Year Manufacture</label>
-                    <select class="form-control">
-                        <option disabled="" selected="">- year -</option>
-                        <option>2008</option>
-                        <option>2009</option>
-                        <option>2010</option>
-                        <option>2011</option>
-                        <option>2012</option>
-                        <option>2013</option>
-                        <option>2014</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <label>Daily Price</label>
+                    <label>Codigo Reserva</label>
                     <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-addon">$</span>
+                        <form method="get" asp-action="SearchReserve" asp-controller="Ticket">
+                            <input type="text" style="width:200px" name="FlightNumber" class="">
+                            <br /><br />
+                            <input type="submit" class="text-center btn btn-next btn-fill btn-info btn-wd btn-sm" value="Buscar Reserva" />
+                        </form>
                     </div>
                 </div>
+            </div>
+            <div class="col-sm-6">
+                @if (Model != null)
+                {
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Reserva:</label>
+                            <label class="form-control">@Model.FlightNumber</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <label class="form-control">@Model.NamePasanger</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefono:</label>
+                            <label class="form-control">@Model.PhoneNumber</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <label class="form-control">@Model.EmailContact</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha:</label>
+                            <label class="form-control">@Model.Flight.DepartureDate</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Ruta:</label>
+                            <label class="form-control">@Model.Flight.DepartureStation - @Model.Flight.ArrivalStation</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio:</label>
+                            <label class="form-control">@Model.Flight.Price - @Model.Flight.Currency</label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-4">
+                
             </div>
         </div>
     </div>

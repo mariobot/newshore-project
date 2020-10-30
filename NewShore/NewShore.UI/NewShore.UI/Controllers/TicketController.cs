@@ -1,24 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewShore.Domain.DTO;
 
 namespace NewShore.UI.Controllers
 {
     public class TicketController : Controller
     {
+        private readonly HttpClient clientHttp;
+        public TicketController(IHttpClientFactory clientHttp)
+        {
+            this.clientHttp = clientHttp.CreateClient("apiClient");
+        }
+
         // GET: TicketController
         public ActionResult Index()
         {
-            return View();
+            return View(null);
         }
 
-        // GET: TicketController/Details/5
-        public ActionResult Reserve(string FlightNumber)
+        [HttpGet]
+        public async Task<ActionResult> SearchReserve(string FlightNumber)
         {
-            return View();
+            if (!string.IsNullOrEmpty(FlightNumber))
+            {
+                var response = await clientHttp.GetFromJsonAsync<TicketDetailDTO>($"api/ticket/{FlightNumber}");
+                return View("Index", response);
+            }
+            else {
+                return View("Index", null);
+            }            
         }
 
         // GET: TicketController/Create
@@ -52,27 +68,6 @@ namespace NewShore.UI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TicketController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TicketController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

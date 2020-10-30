@@ -1,54 +1,77 @@
-﻿
+﻿@model FlightViewModel
 @{
     ViewData["Title"] = "Busqueda";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@*<div class="tab-pane fade show active" id="details">*@
-    <div class="row">
+    <form method="post" asp-controller="Flight" asp-action="SearchFlight" >
+        <div class="row">
             <div class="col-sm-12">
-                <h4 class="info-text"> Let's start with the basic details</h4>
+                <br />
             </div>
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class="col-sm-3 col-lg-offset-1">
                 <div class="form-group">
-                    <label>What city is your boat in?</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Where is your boat located?">
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <label>Boat Type</label>
-                    <select class="form-control">
-                        <option disabled="" selected="">- boat type -</option>
-                        <option>Power</option>
-                        <option>Sail</option>
-                        <option>Paddle</option>
+                    <label>Origen</label>
+                    <select class="form-control" name="Origin">
+                        <option disabled="" selected="">- Origen -</option>
+                        <option value="BOG">Bogotá</option>
+                        <option value="MED">Medillín</option>
+                        <option value="CTG">Cartagena</option>
+                        <option value="PEI">Pereira</option>
                     </select>
                 </div>
             </div>
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class="col-sm-3">
                 <div class="form-group">
-                    <label>Year Manufacture</label>
-                    <select class="form-control">
-                        <option disabled="" selected="">- year -</option>
-                        <option>2008</option>
-                        <option>2009</option>
-                        <option>2010</option>
-                        <option>2011</option>
-                        <option>2012</option>
-                        <option>2013</option>
-                        <option>2014</option>
+                    <label>Destino</label>
+                    <select class="form-control" name="Destination">
+                        <option disabled="" selected="">- Destino -</option>
+                        <option value="BOG">Bogotá</option>
+                        <option value="MED">Medillín</option>
+                        <option value="CTG">Cartagena</option>
+                        <option value="PEI">Pereira</option>
                     </select>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-2">
                 <div class="form-group">
-                    <label>Daily Price</label>
+                    <label>Fecha</label>
                     <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-addon">$</span>
+                        <input type="date" class="form-control" name="From">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Vuelos</label>
+                    <div class="input-group">
+                        <input type="submit" class="form-control btn btn-next btn-fill btn-info btn-wd btn-sm" value="Buscar">
                     </div>
                 </div>
             </div>
         </div>
-@*</div>*@
+        <div class="row">
+            <div class="col-sm-10 col-lg-offset-1">
+                @if (Model.ListFlights != null)
+                {
+                <table class="table table-light table-responsive">
+                    <tr>
+                        <td>Destino</td>
+                        <td>Origen</td>
+                        <td>Fecha</td>
+                        <td>Reservar</td>
+                    </tr>
+                    @foreach (var fly in Model.ListFlights)
+                    {
+                        <tr>
+                            <td>@fly.ArrivalStation</td>
+                            <td>@fly.DepartureStation</td>
+                            <td>@fly.DepartureDate</td>
+                            <td><a class="btn btn-dark">Reservar</a></td>
+                        </tr>
+                    }
+
+                </table>
+                }
+            </div>
+        </div>
+    </form>
