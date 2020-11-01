@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewShore.Domain.DTO;
+using NewShore.UI.Models;
+using NewShore.Domain.Mapper;
 
 namespace NewShore.UI.Controllers
 {
@@ -38,23 +40,37 @@ namespace NewShore.UI.Controllers
         }
 
         // GET: TicketController/Create
-        public ActionResult Create()
+        public ActionResult Create(int Id)
         {
-            return View();
+            TicketModel ticketModel = new TicketModel()
+            {
+                FlightId = Id
+            };
+
+            return View(ticketModel);
         }
 
         // POST: TicketController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(TicketModel ticketModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    TicketDTO ticketDTO = ticketModel.MapTo<TicketDTO>();
+                    var response = await clientHttp.PostAsJsonAsync<TicketDTO>("api/ticket", ticketDTO);
+                    var FlightNumber = await response.Content.ReadAsStringAsync();                    
+                    return RedirectToAction("SearchReserve", "Ticket", new { FlightNumber });
+                }
+                else {
+                    return View("Create", ticketModel);
+                }                
             }
             catch
             {
-                return View();
+                return View("");
             }
         }
 

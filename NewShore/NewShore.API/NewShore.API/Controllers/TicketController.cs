@@ -35,9 +35,9 @@ namespace NewShore.API.Controllers
 
         // POST api/<TicketController>
         [HttpPost]
-        public async Task Post(TicketDTO ticket)
+        public async Task<string> Post(TicketDTO ticket)
         {
-            await ticketService.CreateTicket(ticket);
+            return await ticketService.CreateTicket(ticket);
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model TicketModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="tab-pane" id="details">
+    <div class="row">
+        <div class="col-sm-12">
+            <br />
+        </div>        
+        <div class="col-sm-8 col-lg-offset-2">
+            @if (Model != null)
+            {<form method="post" asp-action="Create" asp-controller="Ticket">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input class="form-control" type="text" asp-for="NamePasanger" />
+                        <span asp-validation-for="NamePasanger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono:</label>
+                        <input class="form-control" type="text" asp-for="PhoneNumber" />
+                        <span asp-validation-for="PhoneNumber"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input class="form-control" type="text" asp-for="EmailContact" />
+                        <span asp-validation-for="EmailContact"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="hidden" asp-for="FlightId">
+                        <br /><br />
+                        <input type="submit" class="text-center btn btn-next btn-fill btn-info btn-wd btn-sm" value="Realizar Reserva" />
+                    </div>
+                </div>
+            </form>
+            }
+        </div>
+        <div class="col-sm-4">
+
+        </div>
+    </div>
+</div>
+

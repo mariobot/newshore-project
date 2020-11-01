@@ -17,12 +17,16 @@ namespace NewShore.Service
             this.context = context;
         }
 
-        public async Task CreateTicket(TicketDTO ticket)
+        public async Task<string> CreateTicket(TicketDTO ticket)
         {
             Ticket _ticket = ticket.MapTo<Ticket>();
             context.Add(_ticket);
             await context.SaveChangesAsync();
-        }
+            string reserve = (from t in context.Tickets
+                              where t.Id == _ticket.Id
+                              select t.Flight.Transport.FlightNumber).FirstOrDefault();
+            return reserve;
+        }                                
 
         public TicketDetailDTO GetTicket(string FlightNumber)
         {

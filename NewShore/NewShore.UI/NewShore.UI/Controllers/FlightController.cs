@@ -27,6 +27,11 @@ namespace NewShore.UI.Controllers
             return View(new FlightViewModel());
         }
 
+        /// <summary>
+        /// This method call the API to execute te query about the flights
+        /// </summary>
+        /// <param name="queryFlight">Entity with the parameters</param>
+        /// <returns>List of flights</returns>
         [HttpPost]
         public async Task<ActionResult> SearchFlight(FlightQueryDTO queryFlight)
         {
@@ -36,33 +41,6 @@ namespace NewShore.UI.Controllers
             modelVM.ListFlights = JsonSerializer.Deserialize<List<FlightDTO>>(json, new JsonSerializerOptions {
                 PropertyNameCaseInsensitive = true,});
             return View("Index", modelVM);
-        }
-
-        // GET: FlightController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: FlightController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FlightController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
         }
     }
 }

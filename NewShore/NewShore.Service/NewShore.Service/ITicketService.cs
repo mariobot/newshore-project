@@ -5,7 +5,7 @@ namespace NewShore.Service
 {
     public interface ITicketService
     {
-        Task CreateTicket(TicketDTO ticket);
+        Task<string> CreateTicket(TicketDTO ticket);
         TicketDetailDTO GetTicket(string FlightNumber);
     }
 }

@@ -14,7 +14,7 @@
                     <select class="form-control" name="Origin">
                         <option disabled="" selected="">- Origen -</option>
                         <option value="BOG">Bogotá</option>
-                        <option value="MED">Medillín</option>
+                        <option value="MED">Medellín</option>
                         <option value="CTG">Cartagena</option>
                         <option value="PEI">Pereira</option>
                     </select>
@@ -26,7 +26,7 @@
                     <select class="form-control" name="Destination">
                         <option disabled="" selected="">- Destino -</option>
                         <option value="BOG">Bogotá</option>
-                        <option value="MED">Medillín</option>
+                        <option value="MED">Medellín</option>
                         <option value="CTG">Cartagena</option>
                         <option value="PEI">Pereira</option>
                     </select>
@@ -66,7 +66,7 @@
                             <td>@fly.ArrivalStation</td>
                             <td>@fly.DepartureStation</td>
                             <td>@fly.DepartureDate</td>
-                            <td><a class="btn btn-dark">Reservar</a></td>
+                            <td><a class="btn btn-next btn-fill btn-info btn-wd btn-sm" href="/Ticket/Create/@fly.Id">Reservar (@fly.Price @fly.Currency)</a></td>
                         </tr>
                     }
 
