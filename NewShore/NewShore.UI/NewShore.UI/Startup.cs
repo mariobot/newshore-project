@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Rotativa.AspNetCore;
 
 namespace NewShore.UI
 {
@@ -60,6 +61,8 @@ namespace NewShore.UI
                     name: "default",
                     pattern: "{controller=Flight}/{action=Index}/{id?}");
             });
+
+            RotativaConfiguration.Setup(env.WebRootPath,"Rotativa");
         }
     }
 }

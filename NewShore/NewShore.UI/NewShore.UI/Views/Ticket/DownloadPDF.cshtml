@@ -1,0 +1,70 @@
+﻿@model NewShore.Domain.DTO.TicketDetailDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reserva @Model.FlightNumber</title>
+</head>
+<body>
+    @if (Model != null)
+    {
+        <table>
+            <tr>
+                <td colspan="2"><label>Reserva:</label></td>                
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Fecha:</label>
+                        <label class="form-control">@Model.Flight.DepartureDate</label>
+                    </div>
+                </td>                
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">                        
+                        <h3 class="form-control">@Model.FlightNumber</h3>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Ruta:</label>
+                        <label class="form-control">@Model.Flight.DepartureStation - @Model.Flight.ArrivalStation</label>
+                    </div>
+                </td>                
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <label class="form-control">@Model.NamePasanger</label>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Telefono:</label>
+                        <label class="form-control">@Model.PhoneNumber</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <label class="form-control">@Model.EmailContact</label>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Precio:</label>
+                        <label class="form-control">@Model.Flight.Price - @Model.Flight.Currency</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+</body>
+</html>

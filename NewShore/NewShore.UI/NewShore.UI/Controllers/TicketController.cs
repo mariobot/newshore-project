@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewShore.Domain.DTO;
 using NewShore.Domain.Mapper;
 using NewShore.UI.Models;
+using Rotativa.AspNetCore;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -45,6 +45,26 @@ namespace NewShore.UI.Controllers
                 logger.LogInformation($"Busqueda de la reserva nula: {FlightNumber}");
                 return View("Index", null);
             }            
+        }
+
+        /// <summary>
+        /// Download the pdf reservation
+        /// </summary>
+        /// <param name="FlightNumber">flight number</param>
+        /// <returns>PDF with the reservation information</returns>
+        public async Task<ActionResult> DownloadPDF(string FlightNumber)
+        {
+            if (!string.IsNullOrEmpty(FlightNumber))
+            {
+                logger.LogInformation($"Generacion de PDF:");
+                var response = await clientHttp.GetFromJsonAsync<TicketDetailDTO>($"api/ticket/{FlightNumber}");
+                return new ViewAsPdf("DownloadPDF",response);                
+            }
+            else
+            {
+                logger.LogInformation($"Codigo de vuelo nulo para generar PDF: {FlightNumber}");
+                return View("Index", null);
+            }
         }
 
         // GET: TicketController/Create
