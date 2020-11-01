@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using NewShore.Domain.DTO;
 using NewShore.UI.Models;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace NewShore.UI.Controllers
 {
     public class FlightController : Controller
     {
         private readonly HttpClient clientHttp;
+        private readonly ILogger<FlightController> logger;
 
-        public FlightController(IHttpClientFactory clientHttp)
+        public FlightController(IHttpClientFactory clientHttp, ILogger<FlightController> logger)
         {
             this.clientHttp = clientHttp.CreateClient("apiClient");
+            this.logger = logger;
         }
 
         // GET: FlightController
@@ -36,6 +36,7 @@ namespace NewShore.UI.Controllers
         public async Task<ActionResult> SearchFlight(FlightQueryDTO queryFlight)
         {
             FlightViewModel modelVM = new FlightViewModel();
+            logger.LogInformation("Busqueda de vuelo", queryFlight);
             var response = await clientHttp.PostAsJsonAsync<FlightQueryDTO>("api/flight", queryFlight);
             var json = await response.Content.ReadAsStringAsync();
             modelVM.ListFlights = JsonSerializer.Deserialize<List<FlightDTO>>(json, new JsonSerializerOptions {

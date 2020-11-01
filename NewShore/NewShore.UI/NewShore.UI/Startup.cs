@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace NewShore.UI
 {
@@ -28,22 +29,23 @@ namespace NewShore.UI
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddHttpClient("apiClient", api => {
-                api.BaseAddress = new Uri("http://localhost:40000/");
+                var apiURL = Configuration.GetValue<string>("apiNewShore");
+                api.BaseAddress = new Uri(apiURL);
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseExceptionHandler("/Home/Error");                
             }
             
             app.UseStaticFiles();
@@ -56,7 +58,7 @@ namespace NewShore.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Flight}/{action=Index}/{id?}");
             });
         }
     }

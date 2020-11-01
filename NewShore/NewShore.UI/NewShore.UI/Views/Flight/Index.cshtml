@@ -63,8 +63,8 @@
                     @foreach (var fly in Model.ListFlights)
                     {
                         <tr>
-                            <td>@fly.ArrivalStation</td>
                             <td>@fly.DepartureStation</td>
+                            <td>@fly.ArrivalStation</td>
                             <td>@fly.DepartureDate</td>
                             <td><a class="btn btn-next btn-fill btn-info btn-wd btn-sm" href="/Ticket/Create/@fly.Id">Reservar (@fly.Price @fly.Currency)</a></td>
                         </tr>
