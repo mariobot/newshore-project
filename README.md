@@ -18,11 +18,14 @@ Actualice la cadena de conexión ubicada en el proyecto NewShore.API appsettings
   }
 ```
 Una vez actualizada la cadena de conexión ejecute las migraciones que tiene el proyecto.
-Esto se realiza abriendo la consola de paquetes y ejecutando el comando: (Tenga en cuenta que se debe aplicar este comando sobre el proyecto NewShore.Persistence)
+Seleccione el proyecto NewShore.API y coloquelo como proyecto de inicio
+luego abra la consola de paquetes y ejecutando el comando: (Tenga en cuenta que se debe aplicar este comando sobre el proyecto NewShore.Persistence)
 ```
 Update-Database
 ```
 Las migraciones tienen ya configurada la data inicial para correr satisfactoriamente el aplicativo, no es necesario correr otros scripts para los datos.
+
+Corrida las migraciones y actualizada la base de datos ir a las propiedades de la solución y establecer el inicio múltiple del los proyectos NewShore.API y NewShore.UI para que se corran simultáneamente los dos proyectos. Con esta configuración ya puede correr el proyecto.  
 
 ## API
 Los puertos utilizados para el proyecto ya están configurados si realiza algún cambio puede actualizarlos en la configuración del proyecto API y UI.
